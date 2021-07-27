@@ -1,7 +1,8 @@
 from midiutil.MidiFile import MIDIFile
+from midi2audio import FluidSynth
 
 
-def write_wave(midi_file, filename: str = "out.midi"):
+def write_midi_file(midi_file, filename: str = "out.midi"):
     """
     writes midi into a file
     :param midi_file:
@@ -10,6 +11,11 @@ def write_wave(midi_file, filename: str = "out.midi"):
     """
     with open(filename, "wb") as midi_file:
         mf.writeFile(midi_file)
+
+
+def midi2wave(midifile, outputfile='output.wav'):
+    fs = FluidSynth()
+    fs.midi_to_audio(midifile, outputfile)
 
 
 if __name__ == '__main__':
@@ -52,3 +58,5 @@ if __name__ == '__main__':
     # write it to disk
     with open("output.mid", 'wb') as outf:
         mf.writeFile(outf)
+
+    midi2wave("output.mid")
