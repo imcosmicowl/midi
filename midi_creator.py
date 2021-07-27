@@ -22,38 +22,27 @@ if __name__ == '__main__':
     # create your MIDI object
     track = 0  # Track numbers are zero-origined
     channel = 0  # MIDI channel number
-    pitch = 60  # MIDI note number
     time = 0  # In beats
-    duration = 1  # In beats
-    volume = 100  # 0-127, 127 being full volume
+    volume = 127  # 0-127, 127 being full volume
 
     mf = MIDIFile(1)  # only 1 track
-    track = 0  # the only track
-
-    time = 0  # start at the beginning
     mf.addTrackName(track, time, "Sample Track")
     mf.addTempo(track, time, 120)
-    program = 86
+    program = 95 # instrument
     mf.addProgramChange(track, channel, time, program)
 
     # add some notes
     channel = 0
-    volume = 100
 
-    pitch = 60  # C4 (middle C)
     time = 0  # start on beat 0
-    duration = 1  # 1 beat long
-    mf.addNote(track, channel, pitch, time, duration, volume)
+    duration = 16  # In beats
+    mf.addNote(track, channel, 97, time, duration, volume)
+    mf.addNote(time, channel, 12, time, duration, volume)
 
-    pitch = 64  # E4
-    time = 2  # start on beat 2
-    duration = 1  # 1 beat long
-    mf.addNote(track, channel, pitch, time, duration, volume)
-
-    pitch = 67  # G4
-    time = 4  # start on beat 4
-    duration = 1  # 1 beat long
-    mf.addNote(track, channel, pitch, time, duration, volume)
+    time = 16
+    duration = 16
+    mf.addNote(track, channel, 104, time, duration, volume)
+    mf.addNote(track, channel, 20, time, duration, volume)
 
     # write it to disk
     with open("output.mid", 'wb') as outf:
