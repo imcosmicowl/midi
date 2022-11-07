@@ -2,23 +2,47 @@ from midiutil.MidiFile import MIDIFile
 from midi2audio import FluidSynth
 
 
-def write_midi_file(midi_object, filename: str = "out.midi"):
+def write_midi_file(midi_object, filename: str = "out.midi") -> None:
     """
-    writes midi into a file
+    Writes midi object into a file.
+
     :param midi_object:
-    :param filename:
+    :param filename: str
+            Filename to store mide object.
     :return:
     """
     with open(filename, "wb") as outf:
         midi_object.writeFile(outf)
 
 
-def midi2wave(midifile, outputfile='output.wav'):
+def midi2wave(midifile: str, output_file: str = 'output.wav'):
+    """
+    Transform midi file into .wav file.
+
+    :param midifile: str
+            Midi filename location.
+    :param output_file: str
+            Filename to store .wav.
+    :return:
+    """
     fs = FluidSynth()
-    fs.midi_to_audio(midifile, outputfile)
+    fs.midi_to_audio(midifile, output_file)
 
 
-def pleasant_loop(midi_object, loop_duration, length):
+# TODO:
+# extend function functionality.
+def pleasant_loop(midi_object, loop_duration: int, length: int) -> None:
+    """
+    Creates pleasant loop from midi_object.
+
+    :param midi_object:
+            Midi object.
+    :param loop_duration: int
+            Total loop duration.
+    :param length: int
+            Duration of every note.
+    :return: None
+    """
 
     for step in range(loop_duration):
         midi_object.addNote(track, channel, 108, step, length, volume)
@@ -42,7 +66,7 @@ if __name__ == '__main__':
     # 73 piccolo
     # 52 mystic but in mid range freq
 
-    program = 95 # instrument
+    program = 95  # instrument
     mf.addProgramChange(track, channel, time, program)
 
     # add some notes
@@ -55,7 +79,7 @@ if __name__ == '__main__':
 
     time = 16
     duration = 16
-    mf.addNote(track, channel,115, time, duration, volume)
+    mf.addNote(track, channel, 115, time, duration, volume)
     mf.addNote(track, channel, 105, time, duration, volume)
 
     # write it to disk
